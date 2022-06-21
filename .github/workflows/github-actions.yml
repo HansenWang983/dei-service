@@ -27,8 +27,9 @@ jobs:
         ECR_REGISTRY: 776011280481.dkr.ecr.us-east-1.amazonaws.com
         ECR_REPOSITORY: dei-service-repo
         IMAGE_TAG: lastest
+      path: app/
       run: |
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f app/Dockerfile .
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
   deploy:
