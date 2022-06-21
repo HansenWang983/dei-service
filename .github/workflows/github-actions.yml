@@ -6,26 +6,29 @@ on:
       - main
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: docker://ghcr.io/kciter/aws-ecr-action:latest
+    Configure_AWS_credentials:
+      uses: aws-actions/configure-aws-credentials@v1
       with:
-        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        session_token: ${{ secrets.AWS_SESSION_TOKEN }}
-        account_id: ${{ secrets.AWS_ACCOUNT_ID }}
-        path: app/
-        repo: 776011280481.dkr.ecr.us-east-1.amazonaws.com/dei-service-repo
-        region: us-east-1
-        tags: latest
-        create_repo: true
-        image_scanning_configuration: true
-        set_repo_policy: false
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+        aws-region: us-east-1
+
+    Login_to_Amazon_ECR:
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+    
+    Build_And_Push_To_ECR:
+      env:
+        ECR_REGISTRY: 776011280481.dkr.ecr.us-east-1.amazonaws.com
+        ECR_REPOSITORY: dei-service-repo
+        IMAGE_TAG: lastest
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f app/Dockerfile .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
   deploy:
-    name: deploy-dev
+    name: deploy-main
     runs-on: ubuntu-latest
     strategy:
       matrix:
