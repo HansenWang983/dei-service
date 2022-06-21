@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  Configure_AWS_credentials:
+  - name: Configure AWS credentials
     uses: aws-actions/configure-aws-credentials@v1
     with:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -14,11 +14,11 @@ jobs:
       aws-session_token: ${{ secrets.AWS_SESSION_TOKEN }}
       aws-region: us-east-1
 
-  Login_to_Amazon_ECR:
+  - name: Login to Amazon ECR
     id: login-ecr
     uses: aws-actions/amazon-ecr-login@v1
   
-  Build_And_Push_To_ECR:
+  - name: Build, tag, and push image to Amazon ECR
     env:
       ECR_REGISTRY: 776011280481.dkr.ecr.us-east-1.amazonaws.com
       ECR_REPOSITORY: dei-service-repo
