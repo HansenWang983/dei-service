@@ -1,9 +1,9 @@
-name: build and deploy on dev branch
+name: build and deploy on master branch
 
 on:
   push:
     branches:
-      - dev
+      - master
 
 jobs:
   build-and-push:
