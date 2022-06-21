@@ -28,6 +28,7 @@ jobs:
         ECR_REPOSITORY: dei-service-repo
         IMAGE_TAG: lastest
       run: |
+        ls -al
         docker build -f app/ -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
