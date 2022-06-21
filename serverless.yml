@@ -1,0 +1,29 @@
+org: hansenwang
+app: dei-aws-flask-api
+service: dei-aws-flask-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  logs:
+    httpApi: true
+    
+  environment:
+    JWT_SECRET: ${ssm:/${opt:stage, self:provider.stage}/dei-service-token, env:JWT_SECRET}
+      
+  # ecr:
+  #   # In this section you can define images that will be built locally and uploaded to ECR
+  #   images:
+  #     appimage:
+  #       path: ./
+
+functions:
+  api:
+    image: 776011280481.dkr.ecr.us-east-1.amazonaws.com/dei-service-repo:latest
+    timeout: 30
+    events:
+      # HTTP API endpoint (API Gateway v1)
+      - httpApi: '*'

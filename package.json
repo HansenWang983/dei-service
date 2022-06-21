@@ -1,0 +1,16 @@
+{
+  "name": "dei-aws-flask-api",
+  "version": "1.0.0",
+  "description": "Example of a Python Flask API service with traditional Serverless Framework",
+  "author": "",
+  "devDependencies": {
+    "serverless-python-requirements": "^5.1.0",
+    "serverless-wsgi": "^1.7.6",
+    "@types/aws-lambda": "^8.10.71",
+    "serverless-plugin-typescript": "^2.1.2",
+    "@types/node": "^14.14.28",
+    "typescript": "^4.6.2",
+    "lodash": "^4.17.21",
+    "jsonwebtoken": "^8.5.1"
+  }
+}
