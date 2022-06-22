@@ -12,7 +12,7 @@ provider:
     httpApi: true
     
   environment:
-    # JWT_SECRET: ${ssm:/${opt:stage, self:provider.stage}/dei-service-token, env:JWT_SECRET}
+    JWT_SECRET: ${ssm:/${opt:stage, self:provider.stage}/dei-service-token, env:JWT_SECRET}
       
   # ecr:
   #   # In this section you can define images that will be built locally and uploaded to ECR
